@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: localhost
+  become: true
+
+  pre_tasks:
+    - name: Update apt cache.
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 900
+      when: ansible_os_family == 'Debian'
+
+  roles:
+    - role: Tinyblargon.smb_client
+      vars:
+        smb_client_credentials:
+          - name: "creds-nas"
+            username: "testuser"
+            password: "Enter123!"
+            domain: "example.com"
+          - name: "creds-old"
+            state: "absent"
+        smb_client_remove: true
+        smb_client_state: "present"
