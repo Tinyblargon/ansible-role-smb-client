@@ -26,12 +26,21 @@
     mode: "0644"
   vars:
     creds: "{{ item }}"
-  loop_control:
-    label: "{{ item.name }}"
   loop: "{{ smb_client_credentials }}"
   become: true
   no_log: true
   when: item.state is undefined or item.state == "present"
+
+- name: Ensure credential files are removed
+  ansible.builtin.file:
+    dest: "{{ smb_client_folder_stripped + '/' + item.name }}"
+    state: absent
+  vars:
+    creds: "{{ item }}"
+  loop: "{{ smb_client_credentials }}"
+  become: true
+  no_log: true
+  when: item.state is defined and item.state == "absent"
 
 - name: Ensure credentials are removed
   ansible.builtin.file:
