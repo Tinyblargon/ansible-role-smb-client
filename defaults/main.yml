@@ -1,0 +1,5 @@
+---
+smb_client_state: "present"
+smb_client_credentials: []
+smb_client_folder: "/opt/.smbcredentials"
+smb_client_remove: false

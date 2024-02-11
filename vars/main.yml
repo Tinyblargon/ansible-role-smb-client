@@ -1,0 +1,2 @@
+---
+smb_client_folder_stripped: "{{ smb_client_folder | regex_replace('\\/$', '') }}"

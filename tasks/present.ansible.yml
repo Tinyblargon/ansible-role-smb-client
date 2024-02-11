@@ -1,0 +1,46 @@
+---
+- name: Ensure smbclient and cifs-utils are installed
+  ansible.builtin.apt:
+    name:
+      - smbclient
+      - cifs-utils
+    cache_valid_time: 3600
+    state: present
+  become: true
+
+- name: Ensure credentials folder exists
+  ansible.builtin.file:
+    path: "{{ smb_client_folder_stripped }}"
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+  become: true
+
+- name: Ensure credential files exist
+  ansible.builtin.template:
+    src: templates/smbcredentials.j2
+    dest: "{{ smb_client_folder_stripped + '/' + item.name }}"
+    owner: root
+    group: root
+    mode: "0644"
+  vars:
+    creds: "{{ item }}"
+  loop_control:
+    label: "{{ item.name }}"
+  loop: "{{ smb_client_credentials }}"
+  become: true
+  no_log: true
+  when: item.state is undefined or item.state == "present"
+
+- name: Ensure credentials are removed
+  ansible.builtin.file:
+    dest: "{{ smb_client_folder_stripped + '/' + item.name }}"
+    state: absent
+  when: item.state is defined and item.state == "absent"
+  become: true
+
+- name: Remove unrefrenced credentials
+  ansible.builtin.include_tasks:
+    file: remove.ansible.yml
+  when: smb_client_remove

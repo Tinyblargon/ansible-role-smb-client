@@ -1,0 +1,16 @@
+---
+- name: Check variables are correct
+  ansible.builtin.import_tasks:
+    file: assert.ansible.yml
+  run_once: true
+  delegate_to: localhost
+
+- name: Configure smb
+  ansible.builtin.include_tasks:
+    file: present.ansible.yml
+  when: smb_client_state == 'present'
+
+- name: Remove smb
+  ansible.builtin.include_tasks:
+    file: absent.ansible.yml
+  when: smb_client_state == 'absent'

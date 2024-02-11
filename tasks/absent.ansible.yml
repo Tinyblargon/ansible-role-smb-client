@@ -1,0 +1,14 @@
+---
+- name: Ensure smbclient and cifs-utils are removed
+  ansible.builtin.apt:
+    name:
+      - smbclient
+      - cifs-utils
+    state: absent
+  become: true
+
+- name: Ensure credentials folder is removed
+  ansible.builtin.file:
+    path: "{{ smb_client_folder_stripped }}"
+    state: absent
+  become: true

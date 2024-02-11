@@ -1,0 +1,17 @@
+---
+- name: Discover all credentials
+  ansible.builtin.find:
+    paths: "{{ smb_client_folder_stripped }}/"
+    recurse: true
+    file_type: any
+  register: smb_client_credentials_unspecified
+  become: true
+
+- name: Delete unspecified credentials
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ smb_client_credentials_unspecified.files }}"
+  loop_control:
+    label: "{{ item.path }}"
+  when: not smb_client_credentials | selectattr('name', 'equalto', item.path | basename)
