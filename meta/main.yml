@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: smb_client
+  namespace: tinyblargon
   author: Tinyblargon
   description: Install dependencies for smb and add credentials.
   license: MIT
