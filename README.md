@@ -36,7 +36,7 @@ N/A
 ```yml
 - hosts: all
   roles:
-    - role: Tinyblargon.smb_client
+    - role: tinyblargon.smb_client
       vars:
         smb_client_credentials:
           - name: "creds-nas"
