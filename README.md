@@ -1,5 +1,7 @@
 # Ansible Role: smb client
 
+[![CI](https://github.com/Tinyblargon/ansible-role-smb-client/actions/workflows/ci.yml/badge.svg)](https://github.com/Tinyblargon/ansible-role-smb-client)
+
 Install dependencies for smb and add credentials.
 
 ## Requirements
