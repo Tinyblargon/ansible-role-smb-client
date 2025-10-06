@@ -5,7 +5,7 @@ galaxy_info:
   author: Tinyblargon
   description: Install dependencies for smb and add credentials.
   license: MIT
-  min_ansible_version: '2.14.1'
+  min_ansible_version: "2.14.1"
   platforms:
     - name: Debian
       versions:
