@@ -1,4 +1,4 @@
-# Ansible Role: smb client
+# Ansible Role: smb_client
 
 [![CI](https://github.com/Tinyblargon/ansible-role-smb-client/actions/workflows/ci.yml/badge.svg)](https://github.com/Tinyblargon/ansible-role-smb-client)
 
